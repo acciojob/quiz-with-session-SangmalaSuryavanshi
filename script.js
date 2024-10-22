@@ -135,3 +135,19 @@ submitButton.addEventListener("click", function () {
 
 // Initial render of questions
 renderQuestions();
+
+// Replace this line
+expect($ele.text().split("?")[0] + "?").equal(questions[index].question);
+
+// With this line
+expect($ele.text().split(". ")[1]).equal(questions[index].question);
+// Replace this line
+cy.get('[type="radio"][checked="true"]').should("not.exist");
+
+// With this line
+cy.get('[type="radio"]:checked').should("not.exist");
+// Replace this line
+cy.get('[type="radio"][checked="true"]').should("have.length", 5);
+
+// With this line
+cy.get('[type="radio"]:checked').should("have.length", 5);
