@@ -126,3 +126,6 @@ submitButton.addEventListener("click", function () {
   // Optionally, you can disable the submit button after submission
   submitButton.disabled = true;
 });
+
+// Initial render of questions
+renderQuestions();
