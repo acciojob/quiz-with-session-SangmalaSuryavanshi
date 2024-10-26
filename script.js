@@ -1,4 +1,5 @@
 // Do not change code below this line
+// This code will just display the questions to the screen
 const questions = [
   {
     question: "What is the capital of France?",
@@ -39,10 +40,9 @@ let userAnswers = [];
 const savedProgress = sessionStorage.getItem("progress");
 if (savedProgress) {
   userAnswers = JSON.parse(savedProgress);
-  console.log("Loaded user answers from sessionStorage:", userAnswers);
 } else {
+  // Initialize userAnswers with nulls
   userAnswers = Array(questions.length).fill(null);
-  console.log("Initialized user answers:", userAnswers);
 }
 
 // Load score from localStorage
@@ -62,7 +62,6 @@ function renderQuestions() {
 
     const questionText = document.createElement("p");
     questionText.textContent = `${i + 1}. ${question.question}`;
-    console.log(`Rendering question: ${questionText.textContent}`);
     questionContainer.appendChild(questionText);
 
     for (let j = 0; j < question.choices.length; j++) {
@@ -76,19 +75,15 @@ function renderQuestions() {
       choiceInput.setAttribute("value", choice);
       choiceInput.id = `question-${i}-choice-${j}`;
 
-      // Check previously selected choices
+      // If user has previously selected this choice, mark it as checked
       if (userAnswers[i] === choice) {
         choiceInput.checked = true;
-        console.log(`Setting choice ${choice} for question ${i}: checked`);
-      } else {
-        console.log(`Choice ${choice} for question ${i} is not checked`);
       }
 
       // Event listener for when a choice is selected
       choiceInput.addEventListener("change", function () {
         userAnswers[i] = choice;
         sessionStorage.setItem("progress", JSON.stringify(userAnswers));
-        console.log("Updated user answers:", userAnswers);
       });
 
       const choiceLabel = document.createElement("label");
@@ -125,29 +120,9 @@ submitButton.addEventListener("click", function () {
   }
 
   const score = calculateScore();
-  console.log("Calculated score:", score);
   scoreElement.textContent = `Your score is ${score} out of ${questions.length}.`;
   localStorage.setItem("score", score);
 
   // Optionally, you can disable the submit button after submission
   submitButton.disabled = true;
 });
-
-// Initial render of questions
-renderQuestions();
-
-// Replace this line
-expect($ele.text().split("?")[0] + "?").equal(questions[index].question);
-
-// With this line
-expect($ele.text().split(". ")[1]).equal(questions[index].question);
-// Replace this line
-cy.get('[type="radio"][checked="true"]').should("not.exist");
-
-// With this line
-cy.get('[type="radio"]:checked').should("not.exist");
-// Replace this line
-cy.get('[type="radio"][checked="true"]').should("have.length", 5);
-
-// With this line
-cy.get('[type="radio"]:checked').should("have.length", 5);
